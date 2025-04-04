@@ -1,4 +1,6 @@
 import enum
+import random
+from collections import Counter
 
 class Suit(enum.IntEnum):
     CLUBS = 1
@@ -52,43 +54,3 @@ class Card:
     
     def __str__(self):
         return f"{self.rank} of {self.suit}"
-
-class HandRank(enum.IntEnum):
-    HIGH_CARD = 0
-    PAIR = 1
-    TWO_PAIR = 2
-    THREE_OF_A_KIND = 3
-    STRAIGHT = 4
-    FLUSH = 5
-    FULL_HOUSE = 6
-    FOUR_OF_A_KIND = 7
-    STRAIGHT_FLUSH = 8
-    ROYAL_FLUSH = 9
-    
-    def __str__(self):
-        return self.name.replace("_", " ").title()
-
-class Hand:
-    # def __init__(self, cards: List[Card] = None):
-    #     self.m_cards = cards or []
-    #     self.m_rank = HandRank.HIGH_CARD
-    #     self.m_rank_values = []
-        
-class Deck:
-    def __init__(self):
-        self.reset()
-    
-    def reset(self):
-        self.m_cards = []
-        
-        for suit in Suit:
-            for value in CardValue:
-                self.m_cards.append(Card(value, suit))
-    
-    def shuffle(self):
-        random.shuffle(self.m_cards)
-    
-    def draw_card(self):
-        if not self.m_cards:
-            raise RuntimeError("Empty deck")
-        return self.m_cards.pop()
