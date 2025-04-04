@@ -1,5 +1,5 @@
 from collections import Counter
-from card import Card, CardValue
+from game_components.card import Card, CardValue
 import enum
 
 
@@ -25,6 +25,13 @@ class Hand:
         self.m_rank = HandRank.HIGH_CARD
         self.top_value = 0
         self.kickers = []
+
+    def __str__(self) -> str:
+        result = ""
+        for card in self.m_cards:
+            result += str(card) + ", "
+
+        return result
 
     def add_card(self, card: Card):
         self.m_cards.append(card)
@@ -206,4 +213,3 @@ class Hand:
                 return unique_values[i]
 
         return 0
-
