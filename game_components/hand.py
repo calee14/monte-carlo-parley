@@ -1,5 +1,5 @@
 from collections import Counter
-from game_components.card import Card, CardValue
+from game_components.card import Card, CardValue, Suit
 import enum
 
 
@@ -35,6 +35,15 @@ class Hand:
 
     def add_card(self, card: Card):
         self.m_cards.append(card)
+
+    def modify_card_at(self, idx: int, value: CardValue, suit: Suit):
+        """
+        modifies the value of the card at position idx
+        """
+        assert idx < len(self.m_cards)
+
+        self.m_cards[idx].rank = value
+        self.m_cards[idx].suit = suit
 
     # looks at the hand to determind hand rank
     def determine_hand_rank(self):
