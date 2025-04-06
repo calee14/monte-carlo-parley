@@ -1,4 +1,5 @@
 from collections import Counter
+from unittest.main import MAIN_EXAMPLES
 from game_components.card import Card, CardValue, Suit
 import enum
 
@@ -222,3 +223,28 @@ class Hand:
                 return unique_values[i]
 
         return 0
+
+    # func to compare hands
+    def compare_hands(self, other: "Hand"):
+        """
+        returns True if hand is greater than the `other` hand
+        """
+        # compare poker hands
+        if self.m_rank > other.m_rank:
+            return True
+        elif self.m_rank < other.m_rank:
+            return False
+
+        # same poker hand but need to compare top set
+        if self.top_value > other.top_value:
+            return True
+        elif self.top_value < other.top_value:
+            return False
+
+        # same hand and top set but then must compare kickers
+        # if our hand is equal to opponent's hand then we consider
+        # strong and 'greater'
+        for i in range(len(self.kickers)):
+            if self.kickers[i] > other.kickers[i]:
+                return True
+        return False
