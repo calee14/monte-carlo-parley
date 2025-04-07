@@ -1,6 +1,6 @@
 import random
 from collections import Counter
-from card import CardValue, Suit, Card
+from game_components.card import CardValue, Suit, Card
 
 
 class Deck:
@@ -17,6 +17,11 @@ class Deck:
         for suit in Suit:
             for value in CardValue:
                 self.m_cards.append(Card(value, suit))
+
+    def remove_cards(self, cards: list[tuple[CardValue, Suit]]):
+        self.m_cards = [
+            card for card in self.m_cards if (card.rank, card.suit) not in cards
+        ]
 
     def shuffle(self):
         """
