@@ -1,21 +1,16 @@
 import enum
 from game_components.deck import Deck
 from game_components.card import Card, CardValue, Suit
-
-
-class PokerStage(enum.IntEnum):
-    PREFLOP = 0
-    FLOP = 3
-    TURN = 4
-    RIVER = 5
+from game_components.stage import PokerStage
+from monte_carlo.simulator import Simulator
 
 
 def game_loop():
     print("welcome to cappi and kk's gambling den!")
     print("enter ctrl+c or ctrl+d to quit.\n")
 
-    num_players = int(input("enter number of players: "))
-    print(f"there are {num_players} other players at the table\n")
+    num_opps = int(input("enter number of players (above 2): ")) - 1
+    print(f"there are {num_opps} other players at the table\n")
 
     # choose stage
     stage = PokerStage[input("what stage? (preflop, flop, turn, river): ").upper()]
@@ -38,27 +33,30 @@ def game_loop():
             break
         else:
             break
-    # create deck
-    deck = Deck()
-    if len(board) > 0:
-        deck.remove_cards(board)
+
+    # make simulator to create deck and setup board
+    simulator = Simulator(num_opps, board)
 
     print("\n")
     while True:
-        deck.shuffle()
+        simulator.deck.shuffle()
 
         # show board
         print("here's the board:")
+        if len(board) == 0:
+            print("empty board")
         for card in board:
             print(f"{card[0]} {card[1]}  ", end="")
 
         # draw your hand
-        my_hand = [deck.draw_card(), deck.draw_card()]
+        my_hand = [simulator.deck.draw_card(), simulator.deck.draw_card()]
         # display cards
         print("here is your hand:")
         for card in my_hand:
             print(f"{card[0]} {card[1]}  ", end="")
         print("\n")
+
+        # calc probability
 
         guess = input("guess your probability (in decimal):\n")
 
