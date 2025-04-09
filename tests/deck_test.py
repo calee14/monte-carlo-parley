@@ -48,6 +48,17 @@ class TestDeck(unittest.TestCase):
 
         self.assertEqual(len(deck.m_cards) == 52 - len(cards), True)
 
+    def test_remove_empty_list(self):
+        deck = Deck()
+        cards = []
+
+        deck.remove_cards(cards)
+
+        for card in deck.m_cards:
+            self.assertEqual((card.rank, card.suit) not in cards, True)
+
+        self.assertEqual(len(deck.m_cards) == 52 - len(cards), True)
+
 
 if __name__ == "__main__":
     unittest.main()
