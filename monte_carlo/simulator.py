@@ -27,8 +27,6 @@ class Simulator(object):
         self.opps_hands = [Hand() for _ in range(num_opps)]
 
     def simulate_round(self):
-        # shuffle deck to reset odds
-
         # deal cards to player and opponents
         # update the player and opp m_cards by using
         # the modify_card_at() function.
