@@ -247,4 +247,7 @@ class Hand:
         for i in range(len(self.kickers)):
             if self.kickers[i] > other.kickers[i]:
                 return True
-        return False
+            elif self.kickers[i] < other.kickers[i]:
+                return False
+
+        return True

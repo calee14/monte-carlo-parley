@@ -156,6 +156,52 @@ class TestHandCompare(unittest.TestCase):
 
         self.assertEqual(self.my_hand.compare_hands(self.opp_hand), True)
 
+    def test_compare_trips(self):
+        self.my_hand.modify_card_at(0, CardValue.TWO, Suit.CLUBS)
+        self.my_hand.modify_card_at(1, CardValue.FIVE, Suit.SPADES)
+        self.my_hand.modify_card_at(2, CardValue.JACK, Suit.HEARTS)
+        self.my_hand.modify_card_at(3, CardValue.SEVEN, Suit.CLUBS)
+        self.my_hand.modify_card_at(4, CardValue.QUEEN, Suit.CLUBS)
+        self.my_hand.modify_card_at(5, CardValue.TWO, Suit.DIAMONDS)
+        self.my_hand.modify_card_at(6, CardValue.TWO, Suit.SPADES)
+
+        self.my_hand.determine_hand_rank()
+
+        self.opp_hand.modify_card_at(0, CardValue.TWO, Suit.CLUBS)
+        self.opp_hand.modify_card_at(1, CardValue.FIVE, Suit.SPADES)
+        self.opp_hand.modify_card_at(2, CardValue.JACK, Suit.HEARTS)
+        self.opp_hand.modify_card_at(3, CardValue.SEVEN, Suit.CLUBS)
+        self.opp_hand.modify_card_at(4, CardValue.QUEEN, Suit.CLUBS)
+        self.opp_hand.modify_card_at(5, CardValue.JACK, Suit.DIAMONDS)
+        self.opp_hand.modify_card_at(6, CardValue.JACK, Suit.SPADES)
+
+        self.opp_hand.determine_hand_rank()
+
+        self.assertEqual(self.my_hand.compare_hands(self.opp_hand), False)
+
+    def test_compare_trips_with_kicker(self):
+        self.my_hand.modify_card_at(0, CardValue.JACK, Suit.CLUBS)
+        self.my_hand.modify_card_at(1, CardValue.FIVE, Suit.SPADES)
+        self.my_hand.modify_card_at(2, CardValue.JACK, Suit.HEARTS)
+        self.my_hand.modify_card_at(3, CardValue.SEVEN, Suit.CLUBS)
+        self.my_hand.modify_card_at(4, CardValue.QUEEN, Suit.CLUBS)
+        self.my_hand.modify_card_at(5, CardValue.JACK, Suit.DIAMONDS)
+        self.my_hand.modify_card_at(6, CardValue.TWO, Suit.SPADES)
+
+        self.my_hand.determine_hand_rank()
+
+        self.opp_hand.modify_card_at(0, CardValue.JACK, Suit.CLUBS)
+        self.opp_hand.modify_card_at(1, CardValue.FIVE, Suit.SPADES)
+        self.opp_hand.modify_card_at(2, CardValue.JACK, Suit.HEARTS)
+        self.opp_hand.modify_card_at(3, CardValue.SEVEN, Suit.CLUBS)
+        self.opp_hand.modify_card_at(4, CardValue.QUEEN, Suit.CLUBS)
+        self.opp_hand.modify_card_at(5, CardValue.KING, Suit.DIAMONDS)
+        self.opp_hand.modify_card_at(6, CardValue.JACK, Suit.SPADES)
+
+        self.opp_hand.determine_hand_rank()
+
+        self.assertEqual(self.my_hand.compare_hands(self.opp_hand), False)
+
 
 # This allows the test to be run when the file is executed directly
 if __name__ == "__main__":
