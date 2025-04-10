@@ -39,6 +39,7 @@ def game_loop():
 
     print("\n")
     while True:
+        # simulate shuffling deck
         simulator.deck.shuffle()
 
         # show board
@@ -57,10 +58,10 @@ def game_loop():
         print("\n")
 
         # calc probability
+        # do it here
+        probability = 0.1  # somethign like simulator.simulate_round()
 
         guess = input("guess your probability (in decimal):\n")
-
-        probability = 0.1
 
         # compare guess with probablility calculated
         if probability - float(guess) <= 0.05:
