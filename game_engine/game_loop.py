@@ -16,55 +16,80 @@ def game_loop():
     stage = PokerStage[input("what stage? (preflop, flop, turn, river): ").upper()]
     print(f"the board is at the {stage.name}\n")
 
+    pocket: list[Card] = []
     while True:
         print(
-            "enter cards (space seperated). ex: ace,spades queen,hearts jack,diamonds ten,clubs"
+            "do you want to have a predetermined POCKET cards? if so here's example: eight,hearts seven,hearts"
         )
-        card_input = input("leave empty for random cards every round\ncards: ")
-        board = [
+        card_input = input("leave field empty for random  cards every round\ncards: ")
+        pocket_temp = [
             (CardValue[card.split(",")[0].upper()], Suit[card.split(",")[1].upper()])
             for card in card_input.split()
         ]
-        if len(board) != stage:
-            print("entered the wrong amount of cards, try again.\n")
-            continue
-        elif len(board) == 0:
+        if len(pocket_temp) == 0:
             print("okay! we'll choose new random cards for you each round")
             break
+        elif len(pocket_temp) != 2:
+            print("entered the wrong amount of cards, try again.\n")
+            continue
         else:
+            pocket = pocket_temp
+            break
+    print("")
+
+    board: list[Card] = []
+    while True:
+        print(
+            "enter cards on the BOARD (space seperated). ex: ace,spades queen,hearts jack,diamonds ten,clubs"
+        )
+        card_input = input(
+            "leave field empty for random board cards every round\ncards: "
+        )
+        board_temp = [
+            (CardValue[card.split(",")[0].upper()], Suit[card.split(",")[1].upper()])
+            for card in card_input.split()
+        ]
+        if len(board_temp) == 0:
+            print("okay! we'll choose new random cards for you each round")
+            break
+        if len(board_temp) != stage:
+            print("entered the wrong amount of cards, try again.\n")
+            continue
+        else:
+            board = board_temp
             break
 
     # make simulator to create deck and setup board
-    simulator = Simulator(num_opps, board)
+    simulator = Simulator(num_opps, board, pocket)
 
-    print("\n")
+    print("")
     while True:
-        # simulate shuffling deck
-        simulator.deck.shuffle()
-
+        sim_board, sim_player_hand, prob_win = simulator.simulate_round()
         # show board
         print("here's the board:")
-        if len(board) == 0:
-            print("empty board")
-        for card in board:
-            print(f"{card[0]} {card[1]}  ", end="")
+        print("|", end=" ")
+        for card in sim_board:
+            print(f"{card[0]} {card[1]}", end=" | ")
 
-        # draw your hand
-        my_hand = [simulator.deck.draw_card(), simulator.deck.draw_card()]
+        print("")
+
         # display cards
         print("here is your hand:")
-        for card in my_hand:
-            print(f"{card[0]} {card[1]}  ", end="")
+        print("|", end=" ")
+        for card in sim_player_hand:
+            print(f"{card[0]} {card[1]}", end=" | ")
         print("\n")
 
         # calc probability
         # do it here
-        probability = 0.1  # somethign like simulator.simulate_round()
+        probability = prob_win  # somethign like simulator.simulate_round()
 
         guess = input("guess your probability (in decimal):\n")
 
         # compare guess with probablility calculated
-        if probability - float(guess) <= 0.05:
+        if probability - float(guess) <= 0.13:
             print("yes! your guess is good!")
         else:
             print("aww! your guess a little off.")
+
+        print("\nnew board!!\n")
