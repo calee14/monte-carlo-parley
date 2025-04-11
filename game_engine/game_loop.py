@@ -64,7 +64,9 @@ def game_loop():
 
     print("")
     while True:
+        # run simulation to get simulated board, player hand, and win probability
         sim_board, sim_player_hand, prob_win = simulator.simulate_round()
+
         # show board
         print("here's the board:")
         print("|", end=" ")
@@ -80,14 +82,10 @@ def game_loop():
             print(f"{card[0]} {card[1]}", end=" | ")
         print("\n")
 
-        # calc probability
-        # do it here
-        probability = prob_win  # somethign like simulator.simulate_round()
-
         guess = input("guess your probability (in decimal):\n")
 
         # compare guess with probablility calculated
-        if probability - float(guess) <= 0.13:
+        if prob_win - float(guess) <= 0.13:
             print("yes! your guess is good!")
         else:
             print("aww! your guess a little off.")

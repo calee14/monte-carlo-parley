@@ -26,11 +26,12 @@ class Simulator(object):
         self.board = board
         self.deck.remove_cards(self.board)
 
+        self.pocket_cards = pocket_cards
         # if player has predetermined pocket cards remove them from deck
         self.deck.remove_cards(pocket_cards)
 
         # for each Hand() obj the the first two indices (0 and 1) are reserved
-        # for the players two cards in hand and indices 2 - 6 are for the board
+        # for the players two pocket cards in hand and indices 2 - 6 are for the board
         self.player_hand = Hand()
         self.opps_hands = [Hand() for _ in range(num_opps)]
 
@@ -59,6 +60,7 @@ class Simulator(object):
 
         # add the board cards to all hands (players and opps)
         # then compare all cards with player's hand
+
         # repeat simulation until we get a good approximation
 
         # this is dummy return
