@@ -35,27 +35,19 @@ class Simulator(object):
         self.player_hand = Hand()
         self.opps_hands = [Hand() for _ in range(num_opps)]
 
-    def simulate_round(
-        self,
-    ) -> tuple[list[tuple[CardValue, Suit]], list[tuple[CardValue, Suit]], float]:
+    def simulate_round(self) -> float:
         """
-        Returns tuple[
-            0. the cards on board (predetermined or chosen at random)
-            1. the players pocket cards (predetermined or chosen at random)
-            2. probability (float) of player winning board
-            ]
+        Returns:
+            float - probaility of player winning hand based on self.board and self.pocket_cards
         """
-        # simulate shuffling deck to reset deck
-        self.deck.shuffle()
-
         # deal cards to player_hand if self.pocket_cards is empty
 
         # deal cards to opponents
 
-        # update the player and opp m_cards by using
+        # update the player_hand and opps_hands m_cards by using
         # the modify_card_at() function.
 
-        # deal the cards on the board
+        # deal the rest of the cards on the board
         # until there are 5 cards on the board
 
         # add the board cards to all hands (players and opps)
@@ -64,14 +56,4 @@ class Simulator(object):
         # repeat simulation until we get a good approximation
 
         # this is dummy return
-        return (
-            [
-                (CardValue.SIX, Suit.HEARTS),
-                (CardValue.TWO, Suit.HEARTS),
-                (CardValue.NINE, Suit.HEARTS),
-                (CardValue.KING, Suit.CLUBS),
-                (CardValue.TWO, Suit.SPADES),
-            ],
-            [(CardValue.EIGHT, Suit.HEARTS), (CardValue.SEVEN, Suit.HEARTS)],
-            0.8,
-        )
+        return 0.8

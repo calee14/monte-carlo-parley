@@ -16,6 +16,8 @@ def game_loop():
     stage = PokerStage[input("what stage? (preflop, flop, turn, river): ").upper()]
     print(f"the board is at the {stage.name}\n")
 
+    # select predetermined pocket cards
+    # empty list = randomly chosen every round
     pocket: list[Card] = []
     while True:
         print(
@@ -37,6 +39,8 @@ def game_loop():
             break
     print("")
 
+    # select predetermined board
+    # empty list = randmly chosen every round
     board: list[Card] = []
     while True:
         print(
@@ -64,24 +68,42 @@ def game_loop():
 
     print("")
     while True:
-        # run simulation to get simulated board, player hand, and win probability
-        sim_board, sim_player_hand, prob_win = simulator.simulate_round()
+        # reset odds by shuffling
+        simulator.deck.shuffle()
 
         # show board
+        if len(board) == 0:
+            # choose # cards based on poker stage
+            simulator.board = []
+            for _ in range(stage.value):
+                simulator.board.append(simulator.deck.draw_card())
+
         print("here's the board:")
         print("|", end=" ")
-        for card in sim_board:
-            print(f"{card[0]} {card[1]}", end=" | ")
+        for i in range(5):
+            if i < len(simulator.board):
+                card = simulator.board[i]
+                print(f"{card[0]} {card[1]}", end=" | ")
+            else:
+                print("??", end=" | ")
 
         print("")
 
         # display cards
+        if len(pocket) == 0:
+            # choose # cards based on poker stage
+            simulator.pocket_cards = []
+            for _ in range(2):
+                simulator.pocket_cards.append(simulator.deck.draw_card())
+
         print("here is your hand:")
         print("|", end=" ")
-        for card in sim_player_hand:
+        for card in simulator.pocket_cards:
             print(f"{card[0]} {card[1]}", end=" | ")
         print("\n")
 
+        # run simulation to get simulated board, player hand, and win probability
+        prob_win = simulator.simulate_round()
         guess = input("guess your probability (in decimal):\n")
 
         # compare guess with probablility calculated
