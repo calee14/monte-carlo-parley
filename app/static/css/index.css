@@ -1,0 +1,130 @@
+:root {
+  --background: #fff;
+  --foreground: #000;
+  --accent: #0070f3;
+  --gray: #888;
+  --light-gray: #eaeaea;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background-color: var(--background);
+  color: var(--foreground);
+  line-height: 1.6;
+  padding: 40px 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 0 0.5rem;
+  text-align: center;
+}
+
+.logo {
+  margin-bottom: 2rem;
+  font-size: 4rem;
+  font-weight: 800;
+}
+
+h1 {
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
+p {
+  margin: 1rem 0;
+  font-size: 1.25rem;
+}
+
+.description {
+  margin: 1rem 0 2rem;
+  line-height: 1.5;
+  font-size: 1.5rem;
+}
+
+.grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 800px;
+  margin-top: 3rem;
+}
+
+.card {
+  margin: 1rem;
+  padding: 1.5rem;
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid var(--light-gray);
+  border-radius: 10px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  width: 100%;
+  max-width: 300px;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.card:hover,
+.card:focus,
+.card:active {
+  border-color: var(--accent);
+}
+
+.card h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+}
+
+.card p {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+.button {
+  display: inline-block;
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 5px;
+  font-weight: 500;
+  margin-top: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.button:hover {
+  background-color: #0060df;
+}
+
+footer {
+  width: 100%;
+  height: 60px;
+  border-top: 1px solid var(--light-gray);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+@media (max-width: 600px) {
+  .grid {
+    width: 100%;
+    flex-direction: column;
+  }
+}
