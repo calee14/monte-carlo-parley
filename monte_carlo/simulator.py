@@ -47,7 +47,7 @@ class Simulator(object):
             stage (int): current poker stage (number of cards on board)
                         - 0: preflop (no community cards)
                         - 3: flop (three community cards) +3 cards
-                        - 4: turn (four community cards) +2 cards
+                        - 4: turn (four community cards) +1 card
                         - 5: river (five community cards) +1 card
         Returns:
             float - probaility of player winning hand based on self.board and self.pocket_cards
@@ -107,8 +107,6 @@ class Simulator(object):
 
         win_probability = wins / NUM_SIMULATIONS
         # repeat simulation until we get a good approximation
-        # this is dummy return
-        # return 0.8
         return win_probability
 
     def get_next_card(self) -> tuple[CardValue, Suit]:
